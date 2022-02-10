@@ -6,6 +6,7 @@ class App extends Component {
   state = {
     question: null,
     category: null,
+    points: null,
     answer: null
   }
 
@@ -15,7 +16,8 @@ class App extends Component {
       const data = await response.json()
       this.setState({
         question: data[0],
-        category: data[0],
+        category: data[0].title,
+        points: data[0],
         answer: data[0]
       })
     } catch (err) {
@@ -40,6 +42,10 @@ class App extends Component {
         <h2>Category:</h2>
         <div className='category'>
           {this.state.category && <Category category={this.state.category} />}
+        </div>
+        <h2>Points:</h2>
+        <div className='points'>
+          {this.state.points && <Points points={this.state.points} />}
         </div>
         <h2>Answer:</h2>
         <div className='answer'>
@@ -66,7 +72,16 @@ const Category = (props) => {
   const { category } = props
   return (
     <div className="category">
-      <p>{category.title}</p>
+      <p>{category.category.title}</p>
+    </div>
+  )
+}
+
+const Points = (props) => {
+  const { points } = props
+  return (
+    <div className="points">
+      <p>{points.value}</p>
     </div>
   )
 }
